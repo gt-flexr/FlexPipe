@@ -1,0 +1,17 @@
+macro(use_shmq)
+  pkg_search_module(SHMQ REQUIRED flexr_shmq)
+  if(SHMQ_FOUND)
+    if(CMAKE_BUILD_TYPE STREQUAL "Debug")
+      message(STATUS "FlexrShmQueue Details")
+      message("\t SHMQ_INCLUDE_DIRS: ${SHMQ_INCLUDE_DIRS}")
+      message("\t SHMQ_CXX_FLAGS: ${SHMQ_CXX_FLAGS}")
+      message("\t SHMQ_LDFLAGS: ${SHMQ_LDFLAGS}")
+    endif()
+
+    include_directories(${SHMQ_INCLUDE_DIRS})
+    list(APPEND FLEXPIPE_DEP_CXX_FLAGS ${SHMQ_CXX_FLAGS})
+    list(APPEND FLEXPIPE_DEP_INCLUDE_DIRS -I${SHMQ_INCLUDE_DIRS})
+    list(APPEND FLEXPIPE_DEP_LINKER_FLAGS ${SHMQ_LDFLAGS})
+  endif(SHMQ_FOUND)
+endmacro()
+

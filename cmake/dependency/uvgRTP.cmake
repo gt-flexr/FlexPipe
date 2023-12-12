@@ -1,0 +1,17 @@
+macro(use_uvgrtp)
+  pkg_search_module(UVGRTP REQUIRED uvgrtp)
+  if(UVGRTP_FOUND)
+    if(CMAKE_BUILD_TYPE STREQUAL "Debug")
+      message(STATUS "uvgRTP Details")
+      message("\t UVGRTP_INCLUDE_DIRS: ${UVGRTP_INCLUDE_DIRS}")
+      message("\t UVGRTP_CXX_FLAGS: ${UVGRTP_CXX_FLAGS}")
+      message("\t UVGRTP_LDFLAGS: ${UVGRTP_LDFLAGS}")
+    endif()
+
+    include_directories(${UVGRTP_INCLUDE_DIRS})
+    list(APPEND FLEXPIPE_DEP_CXX_FLAGS ${UVGRTP_CXX_FLAGS})
+    list(APPEND FLEXPIPE_DEP_INCLUDE_DIRS -I${UVGRTP_INCLUDE_DIRS})
+    list(APPEND FLEXPIPE_DEP_LINKER_FLAGS ${UVGRTP_LDFLAGS})
+  endif(UVGRTP_FOUND)
+endmacro()
+

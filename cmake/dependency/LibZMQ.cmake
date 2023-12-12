@@ -1,0 +1,17 @@
+macro(use_libzmq)
+  pkg_search_module(LIBZMQ REQUIRED libzmq)
+  if(LIBZMQ_FOUND)
+    if(CMAKE_BUILD_TYPE STREQUAL "Debug")
+      message(STATUS "LibZMQ Details")
+      message("\t LIBZMQ_INCLUDE_DIRS: ${LIBZMQ_INCLUDE_DIRS}")
+      message("\t LIBZMQ_CXX_FLAGS: ${LIBZMQ_CXX_FLAGS}")
+      message("\t LIBZMQ_LDFLAGS: ${LIBZMQ_LDFLAGS}")
+    endif()
+
+    include_directories(${LIBZMQ_INCLUDE_DIRS})
+    list(APPEND FLEXPIPE_DEP_CXX_FLAGS ${LIBZMQ_CXX_FLAGS})
+    list(APPEND FLEXPIPE_DEP_INCLUDE_DIRS -I${LIBZMQ_INCLUDE_DIRS})
+    list(APPEND FLEXPIPE_DEP_LINKER_FLAGS ${LIBZMQ_LDFLAGS})
+  endif(LIBZMQ_FOUND)
+endmacro()
+
