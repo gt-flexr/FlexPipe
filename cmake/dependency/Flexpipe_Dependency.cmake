@@ -31,7 +31,7 @@ macro(setup_dependencies)
   use_shmq()
 
   if(CMAKE_BUILD_TYPE STREQUAL "Debug")
-    message(STATUS "[FlexPipe] dependency flags")
+    message(STATUS "[Flexpipe] dependency flags")
     message("\tCXX_FLAGS: ${FLEXPIPE_DEP_CXX_FLAGS}")
     message("\tLINKER_FLAGS: ${FLEXPIPE_DEP_LINKER_FLAGS}")
     message("\tLINKER_LIBS: ${FLEXPIPE_DEP_LINKER_LIBS}")
