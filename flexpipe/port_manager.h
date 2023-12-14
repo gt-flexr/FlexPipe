@@ -51,7 +51,7 @@ namespace flexpipe
     /***** Port Activation Interface -- Deployer *****/
     /** Input Port Activation **/
     template <typename T>
-    void activateInportAsLocal(const std::string tag)
+    void activateInPortAsLocal(const std::string tag)
     {
       if (inPortMap.find(tag) == inPortMap.end())
         debug_print("Port %s is not found", tag.c_str());
@@ -67,7 +67,7 @@ namespace flexpipe
     }
 
     template <typename T>
-    void activateInportAsShm(const std::string tag, int maxElem, int eachElemMaxSize)
+    void activateInPortAsShm(const std::string tag, const std::string shmId, int maxElem, int eachElemMaxSize)
     {
       if (inPortMap.find(tag) == inPortMap.end())
         debug_print("Port %s is not found", tag.c_str());
@@ -77,7 +77,7 @@ namespace flexpipe
           maxElem = 1;
         if (eachElemMaxSize < sizeof(T)) // eachElemMaxSize is the max size of each queued element in the shm
           eachElemMaxSize = sizeof(T);
-        inPortMap[tag]->activateAsLocalShmInput(tag, tag, maxElem, eachElemMaxSize);
+        inPortMap[tag]->activateAsLocalShmInput(tag, shmId, maxElem, eachElemMaxSize);
         debug_print("Port %s is activated as local shm", tag.c_str());
       }
       else
@@ -120,7 +120,7 @@ namespace flexpipe
     }
 
     template <typename T>
-    void activateOutPortAsShm(const std::string tag, int maxElem, int eachElemMaxSize, PortDependency pd)
+    void activateOutPortAsShm(const std::string tag, const std::string shmId, int maxElem, int eachElemMaxSize, PortDependency pd)
     {
       if (outPortMap.find(tag) == outPortMap.end())
         debug_print("Port %s is not found", tag.c_str());
@@ -130,7 +130,7 @@ namespace flexpipe
           maxElem = 1;
         if (eachElemMaxSize < sizeof(T)) // eachElemMaxSize is the max size of each queued element in the shm
           eachElemMaxSize = sizeof(T);
-        outPortMap[tag]->activateAsLocalShmOutput(tag, tag, maxElem, eachElemMaxSize, pd);
+        outPortMap[tag]->activateAsLocalShmOutput(tag, shmId, maxElem, eachElemMaxSize, pd);
         debug_print("Port %s is activated as local shm", tag.c_str());
       }
       else
@@ -161,7 +161,7 @@ namespace flexpipe
 
 
     template <typename T>
-    void duplicateOutPortAsShm(const std::string from, const std::string to, int shmId, int maxElem, int eachElemMaxSize, PortDependency pd)
+    void duplicateOutPortAsShm(const std::string from, const std::string to, const std::string shmId, int maxElem, int eachElemMaxSize, PortDependency pd)
     {
       duplicatedOutPortMap.insert(std::make_pair<std::string, std::string>(from.c_str(), to.c_str()));
       registerOutPortTag(to, outPortMap[from]->sendLocalCopy, outPortMap[from]->serialize);
@@ -233,6 +233,8 @@ namespace flexpipe
     template <typename T>
     void freeInput(std::string tag, T *msg)
     {
+      if(msg == nullptr) return;
+
       inPortMap[tag]->freeInput(msg);
     }
   };
