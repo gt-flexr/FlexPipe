@@ -54,6 +54,8 @@ namespace flexpipe
     void activateInportAsLocal(const std::string tag)
     {
       if (inPortMap.find(tag) == inPortMap.end())
+        debug_print("Port %s is not found", tag.c_str());
+      else if (inPortMap.find(tag)->second->activated == false)
       {
         inPortMap[tag]->activateAsLocalInput<T>(tag);
         debug_print("Port %s is activated as local", tag.c_str());
@@ -68,6 +70,8 @@ namespace flexpipe
     void activateInportAsShm(const std::string tag, int maxElem, int eachElemMaxSize)
     {
       if (inPortMap.find(tag) == inPortMap.end())
+        debug_print("Port %s is not found", tag.c_str());
+      else if (inPortMap.find(tag)->second->activated == false)
       {
         if (maxElem <= 0) // maxElem is the max number of elements in the shm
           maxElem = 1;
@@ -87,7 +91,12 @@ namespace flexpipe
     void activateInPortAsRemote(RemoteProtocol p, const std::string tag, int bindingPortNum)
     {
       if (inPortMap.find(tag) == inPortMap.end())
+        debug_print("Port %s is not found", tag.c_str());
+      else if (inPortMap.find(tag)->second->activated == false)
+      {
+        debug_print("Port %s is activated", tag.c_str());
         inPortMap[tag]->activateAsRemoteInput(p, bindingPortNum);
+      }
       else
         debug_print("Port %s is already activated", tag.c_str());
     }
@@ -98,6 +107,8 @@ namespace flexpipe
     void activateOutPortAsLocal(const std::string tag, PortDependency pd)
     {
       if (outPortMap.find(tag) == outPortMap.end())
+        debug_print("Port %s is not found", tag.c_str());
+      else if (outPortMap.find(tag)->second->activated == false)
       {
         outPortMap[tag]->activateAsLocalOutput<T>(tag, pd);
         debug_print("Port %s is activated as local", tag.c_str());
@@ -112,6 +123,8 @@ namespace flexpipe
     void activateOutPortAsShm(const std::string tag, int maxElem, int eachElemMaxSize, PortDependency pd)
     {
       if (outPortMap.find(tag) == outPortMap.end())
+        debug_print("Port %s is not found", tag.c_str());
+      else if (outPortMap.find(tag)->second->activated == false)
       {
         if (maxElem <= 0) // maxElem is the max number of elements in the shm
           maxElem = 1;
@@ -129,6 +142,8 @@ namespace flexpipe
     void activateOutPortAsRemote(RemoteProtocol p, const std::string tag, std::string addr, int portNum)
     {
       if (outPortMap.find(tag) == outPortMap.end())
+        debug_print("Port %s is not found", tag.c_str());
+      else if (outPortMap.find(tag)->second->activated == false)
         outPortMap[tag]->activateAsRemoteOutput(p, addr, portNum);
       else
         debug_print("Port %s is already activated", tag.c_str());
