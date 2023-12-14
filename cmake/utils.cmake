@@ -24,17 +24,10 @@ endmacro()
 
 macro(util_set_installation)
   # Install
-  string(REPLACE ";" " " FLEXR_CORE_CXX_FLAGS    "${FLEXR_CORE_CXX_FLAGS}")
-  string(REPLACE ";" " " FLEXR_CORE_INCLUDE_DIRS "${FLEXR_CORE_INCLUDE_DIRS}")
-  string(REPLACE ";" " " FLEXR_CORE_LINKER_FLAGS "${FLEXR_CORE_LINKER_FLAGS}")
-  string(REPLACE ";" " " FLEXR_CORE_LINKER_LIBS  "${FLEXR_CORE_LINKER_LIBS}")
-
-  string(REPLACE ";" " " FLEXR_KERNEL_CXX_FLAGS    "${FLEXR_KERNEL_CXX_FLAGS}")
-  string(REPLACE ";" " " FLEXR_KERNEL_LINKER_FLAGS "${FLEXR_KERNEL_LINKER_FLAGS}")
-  string(REPLACE ";" " " FLEXR_KERNEL_LINKER_LIBS  "${FLEXR_KERNEL_LINKER_LIBS}")
-
-  set(FLEXR_HEADER flexr)
-  install(FILES ${CMAKE_SOURCE_DIR}/${FLEXR_HEADER} DESTINATION ${CMAKE_INSTALL_PREFIX}/include)
+  string(REPLACE ";" " " FLEXPIPE_DEP_CXX_FLAGS    "${FLEXPIPE_DEP_CXX_FLAGS}")
+  string(REPLACE ";" " " FLEXPIPE_DEP_INCLUDE_DIRS "${FLEXPIPE_DEP_INCLUDE_DIRS}")
+  string(REPLACE ";" " " FLEXPIPE_DEP_LINKER_FLAGS "${FLEXPIPE_DEP_LINKER_FLAGS}")
+  string(REPLACE ";" " " FLEXPIPE_DEP_LINKER_LIBS  "${FLEXPIPE_DEP_LINKER_LIBS}")
 
   if(NOT WIN32)
     if(NOT DEFINED ENV{PKG_CONFIG_PATH})
@@ -42,9 +35,9 @@ macro(util_set_installation)
       message("PKG_CONFIG_PATH is not found. Set it with ${PKG_CONFIG_PATH}")
     endif(NOT DEFINED ENV{PKG_CONFIG_PATH})
 
-    configure_file("flexr.pc.in" "flexr.pc" @ONLY)
+    configure_file("flexpipe.pc.in" "flexpipe.pc" @ONLY)
     #install(FILES ${CMAKE_CURRENT_BINARY_DIR}/flexr.pc DESTINATION ${PKG_CONFIG_PATH}/)
-    install(FILES ${CMAKE_CURRENT_BINARY_DIR}/flexr.pc DESTINATION /usr/local/lib/pkgconfig/)
+    install(FILES ${CMAKE_CURRENT_BINARY_DIR}/flexpipe.pc DESTINATION /usr/local/lib/pkgconfig/)
   endif(NOT WIN32)
 endmacro()
 

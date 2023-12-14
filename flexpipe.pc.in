@@ -1,0 +1,13 @@
+prefix=@CMAKE_INSTALL_PREFIX@
+exec_prefix=@CMAKE_INSTALL_PREFIX@
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+
+Name: FlexPipe
+Description: The core pipelining framework extracted from FleXR
+URL: https://github.com/gt-flexr/FlexPipe
+Version: 1.0
+
+Requires:
+Cflags:  -std=c++14 -I${includedir} @FLEXPIPE_DEP_CXX_FLAGS@ @FLEXPIPE_DEP_INCLUDE_DIRS@
+Libs:  -L${libdir} @FLEXPIPE_DEP_LINKER_FLAGS@ -lflexpipe

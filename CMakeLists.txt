@@ -28,7 +28,7 @@ add_subdirectory(source)
 # add_subdirectory(examples)
 #
 # # Installation settings
-# util_set_installation()
+util_set_installation()
 
 message(STATUS "[FleXR Kernel Details]")
 message("\t FLEXR_KERNEL_INCLUDE_DIRS: ${FLEXR_KERNEL_INCLUDE_DIRS}")
