@@ -87,15 +87,14 @@ namespace flexpipe
     }
 
 
-    template <typename T>
     void activateInPortAsRemote(RemoteProtocol p, const std::string tag, int bindingPortNum)
     {
       if (inPortMap.find(tag) == inPortMap.end())
         debug_print("Port %s is not found", tag.c_str());
       else if (inPortMap.find(tag)->second->activated == false)
       {
-        debug_print("Port %s is activated", tag.c_str());
         inPortMap[tag]->activateAsRemoteInput(p, bindingPortNum);
+        debug_print("Port %s is activated as remote", tag.c_str());
       }
       else
         debug_print("Port %s is already activated", tag.c_str());
@@ -144,7 +143,10 @@ namespace flexpipe
       if (outPortMap.find(tag) == outPortMap.end())
         debug_print("Port %s is not found", tag.c_str());
       else if (outPortMap.find(tag)->second->activated == false)
+      {
         outPortMap[tag]->activateAsRemoteOutput(p, addr, portNum);
+        debug_print("Port %s is activated as remote", tag.c_str());
+      }
       else
         debug_print("Port %s is already activated", tag.c_str());
     }

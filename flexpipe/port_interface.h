@@ -314,7 +314,7 @@ namespace flexpipe
         recvBuf = nullptr;
       }
       else
-        debug_print("received failed...");
+        debug_print("nothing received...");
 
       if (recvBuf != nullptr)
         delete recvBuf;
@@ -356,7 +356,7 @@ namespace flexpipe
         recvBuf = nullptr;
       }
       else
-        debug_print("received failed...");
+        debug_print("nothing received...");
 
       if (recvBuf != nullptr)
         delete recvBuf;
