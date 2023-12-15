@@ -4,6 +4,7 @@
 #include <flexpipe/FlexPipe.h>
 
 #define MSG_SIZE (1920*1080*3) // Assume 1080p image
+#define MSG_NUM 10
 using namespace std;
 
 using MsgType = flexpipe::Message<vector<char>>;
@@ -25,7 +26,7 @@ public:
 
   raft::kstatus run() override
   {
-    if (msgIndex >= 10)
+    if (msgIndex >= MSG_NUM)
       return raft::stop;
     MsgType *msg = portManager.getOutputPlaceholder<MsgType>("o1");
 
@@ -61,17 +62,13 @@ public:
   {
     MsgType *msg = portManager.getInput<MsgType>("i1");
 
-    if(msg != nullptr)
-    {
-      printf("SinkKernel %dth, E2E latency(%.2fms): size %d, 50th elem %d\n", msg->seq, getTsMs() - msg->ts, msg->dataSize, msg->data[50]);
-      if (msg->seq >= 10)
-        return raft::stop;
-    }
-    else printf("SinkKernelB did not get any input...\n");
+    printf("SinkKernel %dth, E2E latency(%.2fms): size %d, 50th elem %d\n", msg->seq, getTsMs() - msg->ts, msg->dataSize, msg->data[50]);
+    // msg->data.clear();
+    if (msg->seq >= MSG_NUM)
+      return raft::stop;
 
-    frequencyManager.adjust();
     portManager.freeInput("i1", msg);
-
+    frequencyManager.adjust();
     return raft::proceed;
   }
 };
@@ -97,13 +94,13 @@ public:
     if(msg != nullptr)
     {
       printf("SinkKernel %dth, E2E latency(%.2fms): size %d, 50th elem %d\n", msg->seq, getTsMs() - msg->ts, msg->dataSize, msg->data[50]);
-      if (msg->seq >= 10)
+      if (msg->seq >= MSG_NUM)
         return raft::stop;
     }
     else printf("SinkKernelNB did not get any input...\n");
 
-    frequencyManager.adjust();
     portManager.freeInput("i1", msg);
+    frequencyManager.adjust();
 
     return raft::proceed;
   }
