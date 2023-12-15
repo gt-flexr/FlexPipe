@@ -1,8 +1,8 @@
 # only works on bash
-# bash 2_tcp_pipeline.sh
+# bash 3_rtp_pipeline.sh
 
 # set variable filename
-filename=2_tcp_pipeline
+filename=3_rtp_pipeline
 
 function echo_color()
 {
@@ -30,4 +30,3 @@ g++ $filename.cc -o $filename.out `pkg-config --libs --cflags flexpipe`
 
 echo_color yellow "Run ./$filename"
 ./$filename.out
-
