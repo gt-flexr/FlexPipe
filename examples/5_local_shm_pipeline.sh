@@ -1,8 +1,10 @@
 # only works on bash
-# bash 1_local_pipeline.sh
+# bash 5_local_shm_pipeline.sh
 
-# set variable filename
-filename=1_local_pipeline
+rm /dev/shm/5_local_shm
+
+filename1=5_local_shm_pipeline_source
+filename2=5_local_shm_pipeline_sink
 
 function echo_color()
 {
@@ -25,8 +27,10 @@ function echo_color()
     esac
 }
 
-echo_color blue "Build and run $filename.cc"
-g++ $filename.cc -o $filename.out `pkg-config --libs --cflags flexpipe`
+echo_color blue "Build and run $filename1.cc and $filename2.cc"
+g++ $filename1.cc -o $filename1.out `pkg-config --libs --cflags flexpipe`
+g++ $filename2.cc -o $filename2.out `pkg-config --libs --cflags flexpipe`
 
-echo_color yellow "Run ./$filename"
-./$filename.out
+echo_color yellow "Run ./sink & ./source"
+./$filename2.out &
+./$filename1.out
