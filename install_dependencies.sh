@@ -10,7 +10,7 @@ sudo make install
 cd ../..
 
 # 2. libzmq & cppzmq
-echo ********** Installing libzmq & cppzmq **********
+echo ********** Installing libzmq and cppzmq **********
 sudo apt install libsodium-dev
 git clone https://github.com/zeromq/libzmq.git && cd libzmq
 git checkout v4.3.4
