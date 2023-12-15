@@ -520,11 +520,12 @@ namespace flexpipe
       case PortState::LOCAL:
         if (localChannel == LocalChannel::FLEXPIPE)
           (*raftlibPort)[tag].recycle();
-        if (localChannel == LocalChannel::FLEXSHM)
+        if (localChannel == LocalChannel::FLEXSHM && msg != nullptr)
           delete msg;
         break;
       case PortState::REMOTE:
-        delete msg;
+        if (msg != nullptr)
+          delete msg;
         break;
       }
     }
