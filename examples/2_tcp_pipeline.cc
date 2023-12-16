@@ -17,6 +17,7 @@ int main()
   sourceKernel->setFrequency(1);
   sinkKernelB->setFrequency(3);
 
+  /* 4. Run kernels in separate threads as they are not locally linked. */
   std::vector<std::thread> singleKernelThreads;
   vector<flexpipe::Kernel*> separateKernels;
   separateKernels.push_back(sourceKernel);

@@ -17,6 +17,7 @@ int main()
   sourceKernel->setFrequency(1);
   sinkKernelB->setFrequency(3); // since sinkKernelB has blocking input, its execution is nsynchronized with the sourceKernel.
 
+  /* 4. Run kernels in separate threads as they are not locally linked. */
   std::vector<std::thread> singleKernelThreads;
   vector<flexpipe::Kernel*> separateKernels;
   separateKernels.push_back(sourceKernel);
@@ -29,7 +30,6 @@ int main()
   }
 
   for(int i = 0; i < singleKernelThreads.size(); i++) singleKernelThreads[i].join();
-
 
   return 0;
 }

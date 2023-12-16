@@ -17,8 +17,12 @@ public:
   SourceKernel(string id) : flexpipe::Kernel(id)
   {
     setName("SourceKernel");
+
+    // Register the output port
     portManager.registerOutPortTag("o1", flexpipe::sendLocalBasicCopy<MsgType>,
                                    flexpipe::serializeVector<MsgType>);
+
+    // Set the desired execution frequency, but the kernel user can change this by the pipeline context.
     frequencyManager.setFrequency(1);
   }
 
@@ -51,8 +55,12 @@ public:
   SinkKernelB(string id) : flexpipe::Kernel(id)
   {
     setName("SinkKernelB");
+
+    // Register the input port -- For input dependency, the kernel developer sets blocking/nonblocking.
     portManager.registerInPortTag("i1", flexpipe::PortDependency::BLOCKING,
                                   flexpipe::deserializeDefault<MsgType>);
+
+    // Set the desired execution frequency, but the kernel user can change this by the pipeline context.
     frequencyManager.setFrequency(1);
   }
 
