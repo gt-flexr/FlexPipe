@@ -36,12 +36,12 @@ sudo make install
 Now, you are ready to go. For how to use FlexPipe, please check [**our tutorial in Wiki**](https://github.com/gt-flexr/FlexPipe/wiki)!
 
 
+## For More Background around Stream Processing and Its benefits
+FlexPipe is inspired and built on the top of RaftLib. For the more theoretic and conceptual background, it would be very helpful to read the RaftLib paper [2].
 
+Additionally, about the problem space that addresses issues of distributed stream processing in millisecond-scale, interactive, and multimedia applications, please check the FleXR paper [1].
 
 ## Citation
-[1] Heo, J., Bhardwaj, K., & Gavrilovska, A. (2023, June). [FleXR: A System Enabling Flexibly Distributed Extended Reality](https://dl.acm.org/doi/abs/10.1145/3587819.3590966). In Proceedings of the 14th Conference on ACM Multimedia Systems (pp. 1-13).
-
-BibTex
 ```
 @inproceedings{heo2023flexr,
   title={FleXR: A System Enabling Flexibly Distributed Extended Reality},
@@ -51,3 +51,10 @@ BibTex
   year={2023}
 }
 ```
+
+## References
+[1] Heo, J., Bhardwaj, K., & Gavrilovska, A. (2023, June). [FleXR: A System Enabling Flexibly Distributed Extended Reality](https://dl.acm.org/doi/abs/10.1145/3587819.3590966). In Proceedings of the 14th Conference on ACM Multimedia Systems (pp. 1-13).
+
+[2] Jonathan C Beard, Peng Li, and Roger D Chamberlain. 2017. RaftLib: a C++ tem-plate library for high performance stream parallel processing.The InternationalJournal of High Performance Computing Applications31, 5 (2017), 391–404.
+
+https://www.jonathanbeard.io/pdf/blc16.pdf
